@@ -1,0 +1,55 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Build
+*.egg-info/
+dist/
+build/
+
+# Project specific
+*.log
+.env
+.env.*
+!.env.example
+mlruns/
+outputs/
+logs/
+
+# Data (except features needed for inference)
+data/raw/
+data/processed/
+
+# Notebooks
+notebooks/
+*.ipynb
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# CI/CD
+.github/

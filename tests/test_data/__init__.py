@@ -1,1 +1,1 @@
-"""Data tests"""
+"""Data module tests"""
