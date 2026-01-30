@@ -13,7 +13,6 @@ from typing import Optional
 
 import pandas as pd
 
-from src.utils.config import get_config
 from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -114,7 +113,7 @@ def convert_data_types(df: pd.DataFrame) -> pd.DataFrame:
     """
     logger.info("Converting data types...")
 
-    config = get_config()
+    # config = get_config()
 
     # Ensure date is datetime
     if "date" in df.columns and not pd.api.types.is_datetime64_any_dtype(df["date"]):

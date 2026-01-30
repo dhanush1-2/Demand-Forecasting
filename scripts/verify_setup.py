@@ -8,6 +8,7 @@ Usage:
     python scripts/verify_setup.py
 """
 
+import importlib.util
 import sys
 from pathlib import Path
 
@@ -98,7 +99,7 @@ def check_raw_data():
         print(f"  ✓ Raw data file found ({size_mb:.2f} MB)")
         return True
     else:
-        print(f"  ✗ Raw data file not found")
+        print("  ✗ Raw data file not found")
         print(f"    Expected: {raw_data_path}")
         return False
 
@@ -107,18 +108,16 @@ def check_imports():
     """Check if basic imports work"""
     print("\nChecking imports...")
 
-    try:
-        from src.utils.logger import get_logger
+    if importlib.util.find_spec("src.utils.logger") is not None:
         print("  ✓ src.utils.logger")
-    except ImportError as e:
-        print(f"  ✗ src.utils.logger: {e}")
+    else:
+        print("  ✗ src.utils.logger")
         return False
 
-    try:
-        from src.utils.config import get_config
+    if importlib.util.find_spec("src.utils.config") is not None:
         print("  ✓ src.utils.config")
-    except ImportError as e:
-        print(f"  ✗ src.utils.config: {e}")
+    else:
+        print("  ✗ src.utils.config")
         return False
 
     return True
@@ -132,12 +131,12 @@ def check_config_loading():
         from src.utils.config import get_config, get_paths
 
         config = get_config()
-        print(f"  ✓ Config loaded successfully")
+        print("  ✓ Config loaded successfully")
         print(f"    Project name: {config['project']['name']}")
         print(f"    Version: {config['project']['version']}")
 
         paths = get_paths()
-        print(f"  ✓ Paths resolved successfully")
+        print("  ✓ Paths resolved successfully")
         print(f"    Base path: {paths['base']}")
 
         return True
