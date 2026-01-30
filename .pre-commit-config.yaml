@@ -1,0 +1,41 @@
+# Pre-commit hooks configuration
+# Run: pre-commit install (once)
+# Then hooks run automatically on git commit
+
+repos:
+  # Ruff - Fast Python linter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.6
+    hooks:
+      - id: ruff
+        args: [--fix]  # Auto-fix issues where possible
+      - id: ruff-format  # Ruff's formatter (alternative to Black)
+
+  # Black - Code formatter
+  - repo: https://github.com/psf/black
+    rev: 23.12.0
+    hooks:
+      - id: black
+        language_version: python3.10
+
+  # Standard pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace      # Remove trailing whitespace
+      - id: end-of-file-fixer        # Ensure files end with newline
+      - id: check-yaml               # Validate YAML files
+      - id: check-json               # Validate JSON files
+      - id: check-toml               # Validate TOML files
+      - id: check-added-large-files  # Prevent large files from being committed
+        args: ['--maxkb=1000']
+      - id: check-merge-conflict     # Check for merge conflict markers
+      - id: detect-private-key       # Detect private keys
+
+  # Check for secrets
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: poetry.lock
