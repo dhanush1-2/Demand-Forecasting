@@ -13,6 +13,7 @@ Usage:
 
 import sys
 from pathlib import Path
+
 from loguru import logger
 
 # Remove default handler
@@ -43,9 +44,9 @@ logger.add(
     log_dir / "app.log",
     format=LOG_FORMAT,
     level="DEBUG",
-    rotation="10 MB",      # Rotate when file reaches 10 MB
-    retention="7 days",    # Keep logs for 7 days
-    compression="zip",     # Compress rotated logs
+    rotation="10 MB",  # Rotate when file reaches 10 MB
+    retention="7 days",  # Keep logs for 7 days
+    compression="zip",  # Compress rotated logs
 )
 
 

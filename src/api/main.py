@@ -7,16 +7,17 @@ Usage:
     uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000
 """
 
+import time
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-import time
 
-from src.api.routes import health, predictions
 from src.api.dependencies import get_model_service
-from src.utils.logger import get_logger
+from src.api.routes import health, predictions
 from src.utils.config import get_config
+from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
@@ -33,9 +34,9 @@ async def lifespan(app: FastAPI):
         logger.info(f"Model loaded: {model_service.model_name}")
     except Exception as e:
         logger.error(f"Failed to load model: {e}")
-    
+
     yield  # Application runs here
-    
+
     # Shutdown
     logger.info("Shutting down API...")
 
@@ -45,15 +46,15 @@ app = FastAPI(
     title="Demand Forecasting API",
     description="""
     ## Demand Forecasting REST API
-    
+
     This API provides demand prediction capabilities using machine learning models.
-    
+
     ### Features:
     - Single prediction endpoint
     - Batch predictions for efficiency
     - Health check endpoints for monitoring
     - Model information endpoint
-    
+
     ### Models:
     - LightGBM (default, better accuracy)
     - XGBoost (fallback)
@@ -92,8 +93,7 @@ async def global_exception_handler(request: Request, exc: Exception):
     """Handle all unhandled exceptions."""
     logger.error(f"Unhandled exception: {exc}")
     return JSONResponse(
-        status_code=500,
-        content={"error": "Internal server error", "detail": str(exc)}
+        status_code=500, content={"error": "Internal server error", "detail": str(exc)}
     )
 
 
@@ -110,19 +110,19 @@ async def root():
         "message": "Welcome to Demand Forecasting API",
         "docs": "/docs",
         "health": "/health",
-        "predict": "/predict"
+        "predict": "/predict",
     }
 
 
 if __name__ == "__main__":
     import uvicorn
-    
+
     config = get_config()
     api_config = config.get("api", {})
-    
+
     uvicorn.run(
         "src.api.main:app",
         host=api_config.get("host", "0.0.0.0"),
         port=api_config.get("port", 8000),
-        reload=True
+        reload=True,
     )
