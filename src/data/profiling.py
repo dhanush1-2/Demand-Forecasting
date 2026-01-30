@@ -122,16 +122,12 @@ def generate_correlation_matrix(df: pd.DataFrame) -> dict:
         for col2 in corr_matrix.columns[i + 1 :]:
             corr_val = corr_matrix.loc[col1, col2]
             if abs(corr_val) > 0.7:  # Threshold for "high" correlation
-                high_corr.append(
-                    {"col1": col1, "col2": col2, "correlation": round(corr_val, 3)}
-                )
+                high_corr.append({"col1": col1, "col2": col2, "correlation": round(corr_val, 3)})
 
     return {"matrix": corr_dict, "high_correlations": high_corr}
 
 
-def generate_target_analysis(
-    df: pd.DataFrame, target_col: str = "target_demand"
-) -> dict:
+def generate_target_analysis(df: pd.DataFrame, target_col: str = "target_demand") -> dict:
     """
     Generate analysis focused on the target variable.
 

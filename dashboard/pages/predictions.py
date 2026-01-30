@@ -26,9 +26,7 @@ def show():
             st.error("API is not responding correctly. Start the API first.")
             return
     except requests.exceptions.ConnectionError:
-        st.error(
-            "Cannot connect to API. Start it with: `uvicorn src.api.main:app --reload`"
-        )
+        st.error("Cannot connect to API. Start it with: `uvicorn src.api.main:app --reload`")
         return
 
     st.success("✅ Connected to API")
@@ -50,15 +48,11 @@ def show_single_prediction():
     col1, col2 = st.columns(2)
 
     with col1:
-        prediction_date = st.date_input(
-            "Prediction Date", value=date.today() + timedelta(days=1)
-        )
+        prediction_date = st.date_input("Prediction Date", value=date.today() + timedelta(days=1))
         product_id = st.number_input("Product ID", min_value=1, value=1)
         category_id = st.number_input("Category ID", min_value=1, value=1)
         store_id = st.number_input("Store ID", min_value=1, value=1)
-        historical_sales = st.number_input(
-            "Historical Sales", min_value=0.0, value=100.0
-        )
+        historical_sales = st.number_input("Historical Sales", min_value=0.0, value=100.0)
 
     with col2:
         price = st.number_input("Price", min_value=0.01, value=25.0)
@@ -116,15 +110,11 @@ def show_batch_prediction():
         n_days = st.slider("Number of Days", 1, 30, 7)
 
     with col2:
-        product_id = st.number_input(
-            "Product ID", min_value=1, value=1, key="batch_product"
-        )
+        product_id = st.number_input("Product ID", min_value=1, value=1, key="batch_product")
         store_id = st.number_input("Store ID", min_value=1, value=1, key="batch_store")
 
     with col3:
-        category_id = st.number_input(
-            "Category ID", min_value=1, value=1, key="batch_category"
-        )
+        category_id = st.number_input("Category ID", min_value=1, value=1, key="batch_category")
         base_price = st.number_input("Base Price", min_value=0.01, value=25.0)
 
     if st.button("📊 Generate Forecast", type="primary"):

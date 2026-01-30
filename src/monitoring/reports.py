@@ -33,13 +33,9 @@ class MonitoringReporter:
         self.reports_dir = self.paths["outputs"] / "monitoring_reports"
         self.reports_dir.mkdir(parents=True, exist_ok=True)
 
-        self.column_mapping = ColumnMapping(
-            target="target_demand", prediction="prediction"
-        )
+        self.column_mapping = ColumnMapping(target="target_demand", prediction="prediction")
 
-    def generate_data_quality_report(
-        self, data: pd.DataFrame, save: bool = True
-    ) -> dict:
+    def generate_data_quality_report(self, data: pd.DataFrame, save: bool = True) -> dict:
         """
         Generate a data quality report.
 

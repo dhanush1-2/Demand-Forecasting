@@ -115,9 +115,7 @@ def create_rolling_features(
 
     if stats is None:
         config = get_config()
-        stats = config["features"][
-            "rolling_stats"
-        ]  # Default: ["mean", "std", "min", "max"]
+        stats = config["features"]["rolling_stats"]  # Default: ["mean", "std", "min", "max"]
 
     logger.info(f"Creating rolling features for windows: {windows}, stats: {stats}")
 
@@ -134,12 +132,7 @@ def create_rolling_features(
                 )
             else:
                 # shift(1) to avoid data leakage (don't include current day)
-                rolling = (
-                    df[target_col]
-                    .shift(1)
-                    .rolling(window=window, min_periods=1)
-                    .agg(stat)
-                )
+                rolling = df[target_col].shift(1).rolling(window=window, min_periods=1).agg(stat)
 
             df[col_name] = rolling
             logger.debug(f"Created {col_name}")
@@ -296,9 +289,7 @@ def create_interaction_features(df: pd.DataFrame) -> pd.DataFrame:
 
         if "price" in df.columns:
             # Discount effect: promo * (1 - normalized_price)
-            price_norm = (df["price"] - df["price"].min()) / (
-                df["price"].max() - df["price"].min()
-            )
+            price_norm = (df["price"] - df["price"].min()) / (df["price"].max() - df["price"].min())
             df["promo_discount_effect"] = df["promotion_flag"] * (1 - price_norm)
 
     # Economic interactions
@@ -308,9 +299,7 @@ def create_interaction_features(df: pd.DataFrame) -> pd.DataFrame:
             econ_norm = (df["economic_index"] - df["economic_index"].min()) / (
                 df["economic_index"].max() - df["economic_index"].min()
             )
-            price_norm = (df["price"] - df["price"].min()) / (
-                df["price"].max() - df["price"].min()
-            )
+            price_norm = (df["price"] - df["price"].min()) / (df["price"].max() - df["price"].min())
             df["price_economy_ratio"] = price_norm / (
                 econ_norm + 0.01
             )  # +0.01 to avoid division by zero
@@ -426,9 +415,7 @@ def create_features(
     return df
 
 
-def get_feature_names(
-    df: pd.DataFrame, exclude_cols: Optional[list[str]] = None
-) -> list[str]:
+def get_feature_names(df: pd.DataFrame, exclude_cols: Optional[list[str]] = None) -> list[str]:
     """
     Get list of feature column names (excluding target and identifiers).
 
@@ -467,9 +454,7 @@ if __name__ == "__main__":
 
     # Load and transform data
     df = load_raw_data()
-    df = transform_data(
-        df, add_features=False
-    )  # Don't add basic features (we'll do it here)
+    df = transform_data(df, add_features=False)  # Don't add basic features (we'll do it here)
 
     print(f"Data shape before features: {df.shape}")
 

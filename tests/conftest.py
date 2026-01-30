@@ -49,12 +49,8 @@ def sample_features(sample_raw_data):
     df["is_weekend"] = (df["day_of_week"] >= 5).astype(int)
 
     # Add lag features
-    df["sales_lag_1"] = (
-        df["historical_sales"].shift(1).fillna(df["historical_sales"].mean())
-    )
-    df["sales_lag_7"] = (
-        df["historical_sales"].shift(7).fillna(df["historical_sales"].mean())
-    )
+    df["sales_lag_1"] = df["historical_sales"].shift(1).fillna(df["historical_sales"].mean())
+    df["sales_lag_7"] = df["historical_sales"].shift(7).fillna(df["historical_sales"].mean())
 
     # Add rolling features
     df["sales_rolling_mean_7"] = df["historical_sales"].rolling(7, min_periods=1).mean()

@@ -73,9 +73,7 @@ def tune_xgboost(
     study = optuna.create_study(direction="minimize", sampler=TPESampler(seed=42))
 
     # Run optimization
-    study.optimize(
-        objective, n_trials=n_trials, timeout=timeout, show_progress_bar=True
-    )
+    study.optimize(objective, n_trials=n_trials, timeout=timeout, show_progress_bar=True)
 
     logger.info(f"Best trial RMSE: {study.best_trial.value:.4f}")
     logger.info(f"Best params: {study.best_params}")
@@ -124,9 +122,7 @@ def tune_lightgbm(
 
     study = optuna.create_study(direction="minimize", sampler=TPESampler(seed=42))
 
-    study.optimize(
-        objective, n_trials=n_trials, timeout=timeout, show_progress_bar=True
-    )
+    study.optimize(objective, n_trials=n_trials, timeout=timeout, show_progress_bar=True)
 
     logger.info(f"Best trial RMSE: {study.best_trial.value:.4f}")
     logger.info(f"Best params: {study.best_params}")

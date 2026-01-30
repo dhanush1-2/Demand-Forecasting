@@ -18,9 +18,7 @@ class PredictionRequest(BaseModel):
     store_id: int = Field(..., ge=1, description="Store identifier")
     historical_sales: float = Field(..., ge=0, description="Historical sales value")
     price: float = Field(..., gt=0, description="Product price")
-    promotion_flag: int = Field(
-        ..., ge=0, le=1, description="Promotion active (0 or 1)"
-    )
+    promotion_flag: int = Field(..., ge=0, le=1, description="Promotion active (0 or 1)")
     holiday_flag: int = Field(..., ge=0, le=1, description="Holiday indicator (0 or 1)")
     economic_index: float = Field(..., description="Economic index value")
 

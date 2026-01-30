@@ -47,25 +47,19 @@ class DriftDetector:
             categorical_features=self._get_categorical_features(),
         )
 
-        logger.info(
-            f"DriftDetector initialized with {len(reference_data)} reference samples"
-        )
+        logger.info(f"DriftDetector initialized with {len(reference_data)} reference samples")
 
     def _get_numerical_features(self) -> list:
         """Get numerical feature columns."""
         exclude = ["date", "target_demand"]
-        numerical = self.reference_data.select_dtypes(
-            include=["float64", "int64"]
-        ).columns.tolist()
+        numerical = self.reference_data.select_dtypes(include=["float64", "int64"]).columns.tolist()
         return [c for c in numerical if c not in exclude]
 
     def _get_categorical_features(self) -> list:
         """Get categorical feature columns."""
         return ["promotion_flag", "holiday_flag"]
 
-    def detect_drift(
-        self, current_data: pd.DataFrame, save_report: bool = True
-    ) -> dict:
+    def detect_drift(self, current_data: pd.DataFrame, save_report: bool = True) -> dict:
         """
         Detect data drift between reference and current data.
 
@@ -128,9 +122,7 @@ class DriftDetector:
                 summary["dataset_drift_detected"] = result.get("dataset_drift", False)
                 summary["drift_share"] = result.get("drift_share", 0.0)
                 summary["total_features"] = result.get("number_of_columns", 0)
-                summary["drifted_features_count"] = result.get(
-                    "number_of_drifted_columns", 0
-                )
+                summary["drifted_features_count"] = result.get("number_of_drifted_columns", 0)
 
         return summary
 

@@ -160,9 +160,7 @@ processed_data_schema = DataFrameSchema(
 # =============================================================================
 
 
-def validate_raw_data(
-    df: pd.DataFrame, raise_error: bool = True
-) -> tuple[bool, Optional[str]]:
+def validate_raw_data(df: pd.DataFrame, raise_error: bool = True) -> tuple[bool, Optional[str]]:
     """
     Validate raw data against the schema.
 

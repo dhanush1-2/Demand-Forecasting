@@ -47,17 +47,11 @@ class LightGBMModel(BaseModel):
         default_config = get_model_config("lightgbm")
 
         self.params = {
-            "objective": kwargs.get(
-                "objective", default_config.get("objective", "regression")
-            ),
+            "objective": kwargs.get("objective", default_config.get("objective", "regression")),
             "metric": kwargs.get("metric", default_config.get("metric", "rmse")),
             "max_depth": kwargs.get("max_depth", default_config.get("max_depth", 6)),
-            "learning_rate": kwargs.get(
-                "learning_rate", default_config.get("learning_rate", 0.1)
-            ),
-            "n_estimators": kwargs.get(
-                "n_estimators", default_config.get("n_estimators", 100)
-            ),
+            "learning_rate": kwargs.get("learning_rate", default_config.get("learning_rate", 0.1)),
+            "n_estimators": kwargs.get("n_estimators", default_config.get("n_estimators", 100)),
             "subsample": kwargs.get("subsample", 0.8),
             "colsample_bytree": kwargs.get("colsample_bytree", 0.8),
             "random_state": kwargs.get("random_state", 42),
@@ -139,9 +133,7 @@ class LightGBMModel(BaseModel):
 
         importance = self.model.feature_importances_
         importance_dict = dict(zip(self.feature_names, importance))
-        importance_dict = dict(
-            sorted(importance_dict.items(), key=lambda x: x[1], reverse=True)
-        )
+        importance_dict = dict(sorted(importance_dict.items(), key=lambda x: x[1], reverse=True))
 
         return importance_dict
 

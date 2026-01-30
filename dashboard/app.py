@@ -58,8 +58,7 @@ def main():
 
     st.sidebar.markdown("---")
     st.sidebar.info(
-        "**Demand Forecasting MLOps**\n\n"
-        "An end-to-end ML pipeline for retail demand prediction."
+        "**Demand Forecasting MLOps**\n\n" "An end-to-end ML pipeline for retail demand prediction."
     )
 
     # Route to pages

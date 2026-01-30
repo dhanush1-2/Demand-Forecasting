@@ -158,6 +158,4 @@ class BaseModel(ABC):
         return self
 
     def __repr__(self) -> str:
-        return (
-            f"{self.__class__.__name__}(name={self.name}, is_fitted={self.is_fitted})"
-        )
+        return f"{self.__class__.__name__}(name={self.name}, is_fitted={self.is_fitted})"

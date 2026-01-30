@@ -22,9 +22,7 @@ def show():
     st.markdown("View model metrics, feature importance, and comparisons.")
 
     # Tabs
-    tab1, tab2, tab3 = st.tabs(
-        ["Model Metrics", "Feature Importance", "Predictions vs Actual"]
-    )
+    tab1, tab2, tab3 = st.tabs(["Model Metrics", "Feature Importance", "Predictions vs Actual"])
 
     with tab1:
         show_model_metrics()
@@ -159,9 +157,7 @@ def show_feature_importance():
             ).sort_values("importance", ascending=True)
 
             # Top N features
-            n_features = st.slider(
-                "Number of Features to Show", 10, len(feature_cols), 20
-            )
+            n_features = st.slider("Number of Features to Show", 10, len(feature_cols), 20)
             top_features = importance_df.tail(n_features)
 
             fig = px.bar(
@@ -255,9 +251,7 @@ def show_predictions_vs_actual():
                 title="Actual vs Predicted (Scatter)",
             )
             # Add diagonal line
-            max_val = max(
-                comparison_df["actual"].max(), comparison_df["predicted"].max()
-            )
+            max_val = max(comparison_df["actual"].max(), comparison_df["predicted"].max())
             fig.add_trace(
                 go.Scatter(
                     x=[0, max_val],
@@ -270,13 +264,9 @@ def show_predictions_vs_actual():
             st.plotly_chart(fig, use_container_width=True)
 
             # Residuals
-            comparison_df["residual"] = (
-                comparison_df["actual"] - comparison_df["predicted"]
-            )
+            comparison_df["residual"] = comparison_df["actual"] - comparison_df["predicted"]
 
-            fig = px.histogram(
-                comparison_df, x="residual", nbins=50, title="Residual Distribution"
-            )
+            fig = px.histogram(comparison_df, x="residual", nbins=50, title="Residual Distribution")
             st.plotly_chart(fig, use_container_width=True)
 
         else:

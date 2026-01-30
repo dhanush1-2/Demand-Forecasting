@@ -50,16 +50,10 @@ class XGBoostModel(BaseModel):
             "objective": kwargs.get(
                 "objective", default_config.get("objective", "reg:squarederror")
             ),
-            "eval_metric": kwargs.get(
-                "eval_metric", default_config.get("eval_metric", "rmse")
-            ),
+            "eval_metric": kwargs.get("eval_metric", default_config.get("eval_metric", "rmse")),
             "max_depth": kwargs.get("max_depth", default_config.get("max_depth", 6)),
-            "learning_rate": kwargs.get(
-                "learning_rate", default_config.get("learning_rate", 0.1)
-            ),
-            "n_estimators": kwargs.get(
-                "n_estimators", default_config.get("n_estimators", 100)
-            ),
+            "learning_rate": kwargs.get("learning_rate", default_config.get("learning_rate", 0.1)),
+            "n_estimators": kwargs.get("n_estimators", default_config.get("n_estimators", 100)),
             "subsample": kwargs.get("subsample", 0.8),
             "colsample_bytree": kwargs.get("colsample_bytree", 0.8),
             "random_state": kwargs.get("random_state", 42),
@@ -109,9 +103,7 @@ class XGBoostModel(BaseModel):
             logger.info(f"Using {len(X_val)} samples for validation")
 
         # Fit the model
-        self.model.fit(
-            X_train, y_train, eval_set=eval_set, verbose=kwargs.get("verbose", False)
-        )
+        self.model.fit(X_train, y_train, eval_set=eval_set, verbose=kwargs.get("verbose", False))
 
         self.is_fitted = True
 
@@ -163,9 +155,7 @@ class XGBoostModel(BaseModel):
         importance_dict = dict(zip(self.feature_names, importance))
 
         # Sort by importance (descending)
-        importance_dict = dict(
-            sorted(importance_dict.items(), key=lambda x: x[1], reverse=True)
-        )
+        importance_dict = dict(sorted(importance_dict.items(), key=lambda x: x[1], reverse=True))
 
         return importance_dict
 

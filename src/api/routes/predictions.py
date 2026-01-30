@@ -25,9 +25,7 @@ logger = get_logger(__name__)
     summary="Single Prediction",
     description="Make a single demand prediction.",
 )
-async def predict_single(
-    request: PredictionRequest, model_service=Depends(get_model_service)
-):
+async def predict_single(request: PredictionRequest, model_service=Depends(get_model_service)):
     """
     Make a single demand prediction.
 
@@ -40,9 +38,7 @@ async def predict_single(
         # Make prediction
         prediction = model_service.predict(features)
 
-        logger.info(
-            f"Prediction made: {prediction:.2f} for product {request.product_id}"
-        )
+        logger.info(f"Prediction made: {prediction:.2f} for product {request.product_id}")
 
         return PredictionResponse(
             predicted_demand=round(prediction, 2),
@@ -64,9 +60,7 @@ async def predict_single(
     summary="Batch Predictions",
     description="Make multiple predictions in a single request.",
 )
-async def predict_batch(
-    request: BatchPredictionRequest, model_service=Depends(get_model_service)
-):
+async def predict_batch(request: BatchPredictionRequest, model_service=Depends(get_model_service)):
     """
     Make batch predictions for multiple inputs.
 
@@ -75,8 +69,7 @@ async def predict_batch(
     try:
         # Prepare all features
         all_features = [
-            model_service.prepare_features(pred_request)
-            for pred_request in request.predictions
+            model_service.prepare_features(pred_request) for pred_request in request.predictions
         ]
 
         # Make batch predictions

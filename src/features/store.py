@@ -93,9 +93,7 @@ def save_features(
     return feature_file
 
 
-def load_features(
-    name: str = "features", version: Optional[str] = None
-) -> pd.DataFrame:
+def load_features(name: str = "features", version: Optional[str] = None) -> pd.DataFrame:
     """
     Load features from the feature store.
 
@@ -281,12 +279,8 @@ def create_train_test_split(
         test_df = df.iloc[split_idx:].copy()
 
         logger.info(f"Temporal split at index {split_idx}")
-        logger.info(
-            f"Train date range: {train_df[date_col].min()} to {train_df[date_col].max()}"
-        )
-        logger.info(
-            f"Test date range: {test_df[date_col].min()} to {test_df[date_col].max()}"
-        )
+        logger.info(f"Train date range: {train_df[date_col].min()} to {train_df[date_col].max()}")
+        logger.info(f"Test date range: {test_df[date_col].min()} to {test_df[date_col].max()}")
 
     logger.info(f"Train size: {len(train_df)} rows")
     logger.info(f"Test size: {len(test_df)} rows")

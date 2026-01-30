@@ -45,12 +45,10 @@ class ModelService:
                 self.feature_columns = model_data.get("feature_columns", [])
                 self.model_name = "lightgbm"
                 self.model_type = "LightGBM Regressor"
-                self.trained_date = datetime.fromtimestamp(
-                    lgb_path.stat().st_mtime
-                ).strftime("%Y-%m-%d %H:%M")
-                logger.info(
-                    f"LightGBM model loaded with {len(self.feature_columns)} features"
+                self.trained_date = datetime.fromtimestamp(lgb_path.stat().st_mtime).strftime(
+                    "%Y-%m-%d %H:%M"
                 )
+                logger.info(f"LightGBM model loaded with {len(self.feature_columns)} features")
 
             elif xgb_path.exists():
                 with open(xgb_path, "rb") as f:
@@ -59,12 +57,10 @@ class ModelService:
                 self.feature_columns = model_data.get("feature_columns", [])
                 self.model_name = "xgboost"
                 self.model_type = "XGBoost Regressor"
-                self.trained_date = datetime.fromtimestamp(
-                    xgb_path.stat().st_mtime
-                ).strftime("%Y-%m-%d %H:%M")
-                logger.info(
-                    f"XGBoost model loaded with {len(self.feature_columns)} features"
+                self.trained_date = datetime.fromtimestamp(xgb_path.stat().st_mtime).strftime(
+                    "%Y-%m-%d %H:%M"
                 )
+                logger.info(f"XGBoost model loaded with {len(self.feature_columns)} features")
 
             else:
                 logger.warning("No trained model found")

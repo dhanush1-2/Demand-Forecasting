@@ -62,9 +62,7 @@ class TestModels:
 
         # Model should be at least as good as baseline
         # (on small random data, this might not always hold)
-        assert (
-            model_mae <= baseline_mae * 1.5
-        ), "Model significantly worse than baseline"
+        assert model_mae <= baseline_mae * 1.5, "Model significantly worse than baseline"
 
 
 class TestMetrics:

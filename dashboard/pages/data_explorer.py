@@ -31,9 +31,7 @@ def show():
         return
 
     # Tabs for different views
-    tab1, tab2, tab3, tab4 = st.tabs(
-        ["Overview", "Time Series", "Distributions", "Correlations"]
-    )
+    tab1, tab2, tab3, tab4 = st.tabs(["Overview", "Time Series", "Distributions", "Correlations"])
 
     with tab1:
         show_overview(df)
@@ -59,9 +57,7 @@ def show_overview(df: pd.DataFrame):
         st.metric("Total Columns", len(df.columns))
 
     with col2:
-        st.metric(
-            "Date Range", f"{df['date'].min().date()} to {df['date'].max().date()}"
-        )
+        st.metric("Date Range", f"{df['date'].min().date()} to {df['date'].max().date()}")
         st.metric("Unique Products", df["product_id"].nunique())
 
     with col3:
@@ -98,9 +94,7 @@ def show_time_series(df: pd.DataFrame):
     col1, col2 = st.columns(2)
 
     with col1:
-        category_demand = (
-            df.groupby("category_id")["target_demand"].mean().reset_index()
-        )
+        category_demand = df.groupby("category_id")["target_demand"].mean().reset_index()
         fig = px.bar(
             category_demand,
             x="category_id",
@@ -143,9 +137,7 @@ def show_distributions(df: pd.DataFrame):
     selected_feature = st.selectbox(
         "Select Feature",
         numeric_cols,
-        index=numeric_cols.index("target_demand")
-        if "target_demand" in numeric_cols
-        else 0,
+        index=numeric_cols.index("target_demand") if "target_demand" in numeric_cols else 0,
     )
 
     col1, col2 = st.columns(2)

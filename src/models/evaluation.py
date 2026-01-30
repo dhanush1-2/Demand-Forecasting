@@ -44,9 +44,7 @@ def calculate_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict:
     # Avoid division by zero
     mask = y_true != 0
     if mask.any():
-        metrics["mape"] = (
-            np.mean(np.abs((y_true[mask] - y_pred[mask]) / y_true[mask])) * 100
-        )
+        metrics["mape"] = np.mean(np.abs((y_true[mask] - y_pred[mask]) / y_true[mask])) * 100
     else:
         metrics["mape"] = np.nan
 
@@ -180,9 +178,7 @@ def cross_validate_model(
         "fold_metrics": fold_metrics,
     }
 
-    logger.info(
-        f"CV Results - MAE: {cv_results['mean_mae']:.4f} (+/- {cv_results['std_mae']:.4f})"
-    )
+    logger.info(f"CV Results - MAE: {cv_results['mean_mae']:.4f} (+/- {cv_results['std_mae']:.4f})")
     logger.info(
         f"CV Results - RMSE: {cv_results['mean_rmse']:.4f} (+/- {cv_results['std_rmse']:.4f})"
     )
